@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>gft-toast demo</title>
+
+    <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../bower_components/iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../gft-toast.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic gft-toast demo</h3>
+      <demo-snippet>
+        <template>
+          <gft-toast message-text="Este es un mensaje de prueba!" action-text="Listo" position="bottom-right"></gft-toast>
+
+          <button type="button" onclick="showToast()">Show Toast</button>
+        </template>
+      </demo-snippet>
+    </div>
+    <script>
+      function showToast(){
+        document.getElementsByTagName('gft-toast')[0].setAttribute('show', 'true');
+      }
+    </script>
+  </body>
+</html>

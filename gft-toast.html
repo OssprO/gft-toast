@@ -1,0 +1,133 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+
+<dom-module id="gft-toast">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --opacity-transition: {
+          -webkit-transition: opacity 0.4s ease-in-out;
+          -moz-transition: opacity 0.4s ease-in-out;
+          -ms-transition: opacity 0.4s ease-in-out;
+          -o-transition: opacity 0.4s ease-in-out;
+          transition: opacity 0.4s ease-in-out;
+        };
+      }
+      .show {
+        @apply --opacity-transition;
+      }
+      .hide {
+        filter: alpha(opacity=0);
+        opacity: 0;
+        @apply --opacity-transition;
+      }
+      .top-right {
+        top: 10px;
+        right: 10px;
+      }
+      .top-left {
+        top: 10px;
+        left: 10px;
+      }
+      .bottom-right {
+        bottom: 10px;
+        right: 10px;
+      }
+      .bottom-left {
+        bottom: 10px;
+        left: 10px;
+      }
+      .gft-toast-wrapper {
+        background-color: #C2C8C2;
+        border-radius: 2px;
+        padding: 18px 22px;
+
+        display: flex;
+        position: absolute;
+        max-width: 360px;
+        font-size: 16px;
+
+      }
+      .gft-toast-message {
+        display: inline-block;
+        margin-right: 15px;
+        max-width: 250px;
+      }
+      .gft-toast-discard-wrapper {
+        display: inline-block;
+        float: right;
+      }
+      .gft-toast-discard-button {
+        border: none;
+        background-color: transparent;
+        color: #6A1B9A;
+        text-transform: uppercase;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+    </style>
+
+    <div id="gftToast" class="gft-toast-wrapper">
+      <div class="gft-toast-message">[[messageText]]</div>
+      <div class="gft-toast-discard-wrapper">
+        <button type="button" class="gft-toast-discard-button" on-click="hideComponent">[[actionText]]</button>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * `gft-toast`
+     * Toasts for notifications
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class GftToast extends Polymer.Element {
+      static get is() { return 'gft-toast'; }
+      static get properties() {
+        return {
+          messageText: {
+            type: String,
+            value: 'Message'
+          },
+          actionText: {
+            type: String,
+            value: 'Done'
+          },
+          show: {
+            type: Boolean,
+            value: false,
+            reflectToAttribute: true,
+            observer: '_showChange'
+          },
+          autoclose: {
+            type: Boolean,
+            value: true
+          },
+          position: {
+            type: String,
+            value: 'top-right',
+            observer: '_positionChange'
+          }
+        };
+      }
+      hideComponent(){
+        this.show = !this.show;
+        this.$.gftToast.classList.toggle( 'hide', 'show' );
+      }
+      _showChange(_show) {
+        _show ? this.$.gftToast.classList.remove('hide') : this.$.gftToast.classList.remove('show');
+        this.$.gftToast.classList.toggle( _show ? 'show' : 'hide' );
+      }
+      _positionChange(_position) {
+        this.$.gftToast.classList.add(_position);
+      }
+    }
+
+    window.customElements.define(GftToast.is, GftToast);
+  </script>
+</dom-module>
