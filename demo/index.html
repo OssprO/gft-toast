@@ -22,7 +22,7 @@
       <h3>Basic gft-toast demo</h3>
       <demo-snippet>
         <template>
-          <gft-toast message-text="Este es un mensaje de prueba!" action-text="Listo" position="bottom-right"></gft-toast>
+          <gft-toast id="gftToastExample" message-text="Este es un mensaje de prueba!" action-text="Listo" position="bottom-right"></gft-toast>
 
           <button type="button" onclick="showToast()">Show Toast</button>
         </template>
@@ -30,7 +30,11 @@
     </div>
     <script>
       function showToast(){
-        document.getElementsByTagName('gft-toast')[0].setAttribute('show', 'true');
+        //console.log(this);
+        //this.$.gftToast.show();
+        //document.getElementsByTagName('gft-toast')[0].show();
+        document.getElementById('gftToastExample').open();
+        //document.getElementsByTagName('gft-toast')[0].setAttribute('show', 'true');
       }
     </script>
   </body>

@@ -38,7 +38,7 @@
         left: 10px;
       }
       .gft-toast-wrapper {
-        background-color: #C2C8C2;
+        background-color: var(--gft-toast-background-color, #C2C8C2);
         border-radius: 2px;
         padding: 18px 22px;
 
@@ -60,18 +60,20 @@
       .gft-toast-discard-button {
         border: none;
         background-color: transparent;
-        color: #6A1B9A;
+        color: var(--gft-toast-action-text-color, #6A1B9A);
         text-transform: uppercase;
         font-weight: bold;
         cursor: pointer;
       }
-
+      .gft-toast-discard-button:focus {
+        outline: 0;
+      }
     </style>
 
     <div id="gftToast" class="gft-toast-wrapper">
       <div class="gft-toast-message">[[messageText]]</div>
       <div class="gft-toast-discard-wrapper">
-        <button type="button" class="gft-toast-discard-button" on-click="hideComponent">[[actionText]]</button>
+        <button type="button" class="gft-toast-discard-button" on-click="close">[[actionText]]</button>
       </div>
     </div>
 
@@ -115,9 +117,11 @@
           }
         };
       }
-      hideComponent(){
-        this.show = !this.show;
-        this.$.gftToast.classList.toggle( 'hide', 'show' );
+      open(){
+        this.set('show', true);
+      }
+      close(){
+        this.set('show', false);
       }
       _showChange(_show) {
         _show ? this.$.gftToast.classList.remove('hide') : this.$.gftToast.classList.remove('show');
